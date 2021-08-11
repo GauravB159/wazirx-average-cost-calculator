@@ -28,7 +28,7 @@
         a.click();
     }
 
-    let orders = document.querySelector(".completed-orders")
+    let orders = document.querySelector(".completed-orders");
     if(!orders){
         alert("No trades found. Make sure you are on WazirX, in the Exchange tab.");
         return;
@@ -36,7 +36,9 @@
     orders.click();
 
     setTimeout(function(){
-        let elements = document.querySelectorAll(".fKIOhs>div .hVoHzJ>div:first-child>div>span:first-child");
+        let container = orders.parentNode.parentNode.parentNode;
+        container = container.querySelector(":scope>div:nth-child(2)>div>div>div:nth-child(3)>div>div");
+        let elements = container.querySelectorAll(".hVoHzJ>div:first-child>div>span:first-child");
         if(!elements.length){
             alert("No trades found. Make sure you have made some trades in WazirX.");
             return;
