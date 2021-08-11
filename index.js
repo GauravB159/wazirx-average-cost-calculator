@@ -55,7 +55,7 @@
             return object;
         });
 
-        let sellElements = document.querySelectorAll(".fKIOhs>div .dQPAKa>div:first-child>div>span:first-child");
+        let sellElements = container.querySelectorAll(".dQPAKa>div:first-child>div>span:first-child");
         sellElements = Array.from(sellElements).map((a)=> a.innerText.split("\n")[0]);
         let sellElementsChunked = chunkArray(sellElements, 4);
         sellElementsObjects = sellElementsChunked.map((a)=>{
