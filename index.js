@@ -38,12 +38,22 @@
     setTimeout(function(){
         let container = orders.parentNode.parentNode.parentNode;
         container = container.querySelector(":scope>div:nth-child(2)>div>div>div:nth-child(3)>div>div");
-        let elements = container.querySelectorAll(".hVoHzJ>div:first-child>div>span:first-child");
-        if(!elements.length){
+
+        let allElements = container.querySelectorAll(":scope>div");
+        let color = "rgb(0, 200, 83)";
+        let elementsContainer = Array.from(allElements).filter(div => color === window.getComputedStyle(div, ":before").backgroundColor);
+        if(!elementsContainer.length){
             alert("No trades found. Make sure you have made some trades in WazirX.");
             return;
         }
-        elements = Array.from(elements).map((a)=> a.innerText.split("\n")[0]);
+        let elements = [];
+        elementsContainer.forEach((container)=>{
+            let temp = container.querySelectorAll(":scope>div:first-child>div>span:first-child");
+            elements.push(...Array.from(temp));
+        });
+        console.log(elements, "ELS2");
+
+        elements = elements.map((a)=> a.innerText.split("\n")[0]);
         let elementsChunked = chunkArray(elements, 4);
         let header = ["Pair", "Amount", "Price", "Total"];
         elementsObjects = elementsChunked.map((a)=>{
@@ -54,8 +64,13 @@
             });
             return object;
         });
-
-        let sellElements = container.querySelectorAll(".dQPAKa>div:first-child>div>span:first-child");
+        let sellElementsContainer = Array.from(allElements).filter(div => color !== window.getComputedStyle(div, ":before").backgroundColor);
+        let sellElements = [];
+        sellElementsContainer.forEach((container)=>{
+            let temp = container.querySelectorAll(":scope>div:first-child>div>span:first-child");
+            sellElements.push(...Array.from(temp));
+        });
+        console.log(sellElements, "ELS");
         sellElements = Array.from(sellElements).map((a)=> a.innerText.split("\n")[0]);
         let sellElementsChunked = chunkArray(sellElements, 4);
         sellElementsObjects = sellElementsChunked.map((a)=>{
